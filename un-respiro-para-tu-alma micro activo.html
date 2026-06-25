@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un Minuto Para Respirar · Un Respiro para Tu Alma</title>
+<meta name="description" content="Hay días donde sigues… pero por dentro ya no puedes más. Este es tu minuto con Dios y contigo misma.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --cream:#F7F3EE;--warm:#EDE6DB;--gold:#B87333;--gold-lt:#F5E9D8;--gold-dk:#7A4A10;
+  --sage:#7A8C6A;--sage-lt:#EAF0E4;--blue-lt:#E8F0F8;--blue:#2D5F8A;
+  --text:#2C2417;--muted:#7A6E63;--border:#DDD4C5;--white:#FFFFFF;
+  --wa:#25D366;--pp:#FFC439;--pp-text:#003087;--r:16px;--r-sm:10px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:520px;margin:0 auto;padding:0 1.25rem 4rem;}
+.site-header{text-align:center;padding:2.5rem 1.25rem 0;max-width:520px;margin:0 auto;}
+.site-header .eyebrow{font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;}
+.site-header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,6vw,38px);font-weight:300;color:var(--text);line-height:1.2;margin-bottom:0.75rem;}
+.site-header h1 em{font-style:italic;color:var(--gold-dk);}
+.site-header .tagline{font-size:14px;color:var(--muted);line-height:1.7;max-width:360px;margin:0 auto 2rem;}
+.progress-track{height:2px;background:var(--border);border-radius:2px;margin:1.5rem 0 2rem;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),#D4956A);border-radius:2px;transition:width 0.45s cubic-bezier(.4,0,.2,1);width:0%;}
+.screen{display:none;}.screen.active{display:block;}
+
+/* INTRO */
+.intro-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:2rem 1.75rem;text-align:center;margin-bottom:1.5rem;box-shadow:0 2px 16px rgba(44,36,23,0.06);}
+.intro-ornament{font-size:32px;margin-bottom:1rem;display:block;}
+.intro-card h2{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--text);line-height:1.4;margin-bottom:1rem;}
+.intro-card p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:1.5rem;}
+.intro-card .steps{display:flex;justify-content:center;gap:1.5rem;margin-bottom:1.75rem;flex-wrap:wrap;}
+.intro-card .step{font-size:12px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:5px;}
+.step-dot{width:28px;height:28px;border-radius:50%;background:var(--gold-lt);border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--gold-dk);}
+.btn-start{display:inline-block;background:var(--gold);color:var(--white);border:none;border-radius:40px;padding:14px 40px;font-family:'Inter',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:background 0.18s,transform 0.12s;width:100%;max-width:280px;}
+.btn-start:hover{background:var(--gold-dk);transform:translateY(-1px);}
+
+/* QUESTIONS */
+.q-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem;margin-bottom:1.25rem;box-shadow:0 2px 12px rgba(44,36,23,0.05);}
+.q-num{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);background:var(--gold-lt);padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:1rem;}
+.q-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--text);line-height:1.45;margin-bottom:1.25rem;}
+.q-sub{font-size:12.5px;color:var(--muted);margin-top:-0.75rem;margin-bottom:1rem;line-height:1.6;}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt{display:flex;align-items:center;gap:12px;background:var(--cream);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:12px 14px;cursor:pointer;text-align:left;width:100%;transition:border-color 0.15s,background 0.15s,box-shadow 0.15s;font-family:'Inter',sans-serif;}
+.opt:hover{border-color:var(--gold);background:var(--white);box-shadow:0 2px 8px rgba(184,115,51,0.12);}
+.opt.sel{border-color:var(--gold);background:var(--gold-lt);box-shadow:0 2px 8px rgba(184,115,51,0.15);}
+.opt-radio{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:border-color 0.15s,background 0.15s;}
+.opt.sel .opt-radio{border-color:var(--gold);background:var(--gold);}
+.opt.sel .opt-radio::after{content:'';width:6px;height:6px;border-radius:50%;background:white;display:block;}
+.opt-label{font-size:14px;font-weight:400;color:var(--text);line-height:1.4;}
+
+/* NAV */
+.nav-row{display:flex;justify-content:flex-end;gap:10px;margin-top:0.5rem;}
+.btn-back{background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:8px;padding:10px 20px;font-size:13px;font-family:'Inter',sans-serif;cursor:pointer;transition:border-color 0.15s;}
+.btn-back:hover{border-color:var(--muted);}
+.btn-next{background:var(--gold);color:white;border:none;border-radius:8px;padding:10px 28px;font-size:14px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:background 0.15s,transform 0.1s;}
+.btn-next:hover{background:var(--gold-dk);}
+.btn-next:disabled{opacity:0.35;cursor:default;}
+
+/* LOADING */
+.loading-wrap{text-align:center;padding:3rem 0;}
+.loading-wrap p{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;font-style:italic;color:var(--muted);line-height:1.7;margin-bottom:2rem;}
+.dots{display:flex;gap:8px;justify-content:center;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 1.3s infinite;}
+.dot:nth-child(2){animation-delay:.2s;}.dot:nth-child(3){animation-delay:.4s;}
+@keyframes pulse{0%,80%,100%{transform:scale(0.6);opacity:0.4;}40%{transform:scale(1);opacity:1;}}
+
+/* VERSE */
+.verse-banner{background:var(--gold-lt);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:0.9rem 1.1rem;margin-bottom:1.5rem;}
+.verse-banner p{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--gold-dk);line-height:1.65;}
+
+/* RESULT HEADER */
+.result-header{text-align:center;margin-bottom:1.5rem;}
+.result-header .emoji{font-size:36px;display:block;margin-bottom:0.5rem;}
+.result-header h2{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--text);line-height:1.3;}
+.result-header .sub{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.6;}
+
+/* OFFER CARDS */
+.offer-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;margin-bottom:1rem;box-shadow:0 2px 12px rgba(44,36,23,0.05);}
+.offer-card.highlight{border-color:var(--gold);box-shadow:0 4px 20px rgba(184,115,51,0.15);}
+.offer-badge{display:inline-block;font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:10px;}
+.badge-gratis{background:#E8F4E8;color:#2E7D32;}
+.badge-ebook{background:var(--sage-lt);color:var(--sage);}
+.badge-cita{background:var(--blue-lt);color:var(--blue);}
+.badge-proceso{background:var(--gold-lt);color:var(--gold-dk);}
+.offer-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;color:var(--text);margin-bottom:6px;}
+.offer-desc{font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:1.1rem;}
+.offer-price{font-size:22px;font-weight:500;color:var(--gold-dk);margin-bottom:3px;font-family:'Cormorant Garamond',serif;}
+.offer-price-sub{font-size:11px;color:var(--muted);margin-bottom:1.1rem;}
+.pay-label{font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.pay-row{display:flex;gap:8px;margin-bottom:6px;}
+.pay-row.single .pbtn{width:100%;}
+
+.pbtn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:11px 12px;border-radius:8px;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border:none;text-decoration:none;transition:opacity 0.15s,transform 0.1s;}
+.pbtn:hover{opacity:0.88;transform:translateY(-1px);}
+.pbtn-pp{background:var(--pp);color:var(--pp-text);}
+.pbtn-wa{background:var(--wa);color:white;}
+.pbtn-gratis{background:#2E7D32;color:white;}
+
+.secure-note{display:flex;align-items:center;justify-content:center;gap:5px;font-size:11px;color:var(--muted);margin-top:4px;}
+.divider{border:none;border-top:1px solid var(--border);margin:1.25rem 0;}
+.alt-links{display:flex;flex-direction:column;gap:6px;align-items:center;}
+.alt-link{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;text-decoration-style:dotted;padding:3px 0;font-family:'Inter',sans-serif;transition:color 0.15s;}
+.alt-link:hover{color:var(--text);}
+
+/* CAPTURE FORM */
+.capture-form{display:flex;flex-direction:column;gap:10px;margin-bottom:1.1rem;}
+.field-group{display:flex;flex-direction:column;gap:5px;}
+.field-group label{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:0.04em;}
+.field-group input{background:var(--cream);border:1.5px solid var(--border);border-radius:8px;padding:10px 13px;font-size:14px;font-family:'Inter',sans-serif;color:var(--text);outline:none;transition:border-color 0.15s;}
+.field-group input:focus{border-color:var(--gold);}
+.field-group input::placeholder{color:#B5ADA4;}
+.btn-gratis-submit{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:#2E7D32;color:white;border:none;border-radius:8px;padding:13px;font-size:14px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:background 0.15s,transform 0.1s;}
+.btn-gratis-submit:hover{background:#1B5E20;transform:translateY(-1px);}
+.btn-gratis-submit:disabled{opacity:0.4;cursor:default;transform:none;}
+.form-note{font-size:11px;color:var(--muted);text-align:center;line-height:1.5;}
+
+/* THANK YOU */
+.thankyou-box{background:#E8F4E8;border:1px solid #81C784;border-radius:var(--r);padding:1.5rem;text-align:center;margin-bottom:1rem;}
+.thankyou-box .ty-icon{font-size:32px;margin-bottom:8px;display:block;}
+.thankyou-box h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:#1B5E20;margin-bottom:6px;}
+.thankyou-box p{font-size:13px;color:#2E7D32;line-height:1.6;}
+
+/* FOOTER */
+.page-footer{text-align:center;padding:2rem 0 1rem;font-size:11px;color:var(--muted);opacity:0.7;}
+
+@media(max-width:420px){
+  .site-header{padding:1.75rem 1rem 0;}
+  .q-card{padding:1.35rem;}
+  .intro-card{padding:1.5rem;}
+  .pay-row{flex-direction:column;}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="eyebrow">✦ Un Respiro para Tu Alma ✦</div>
+  <h1>Un Minuto Para<br><em>Respirar</em></h1>
+  <p class="tagline">Hay días donde sigues… pero por dentro ya no puedes más.<br>Este es tu minuto con Dios y contigo misma.</p>
+</header>
+
+<div class="wrap">
+  <div class="progress-track"><div class="progress-fill" id="pf"></div></div>
+
+  <!-- INTRO -->
+  <div class="screen active" id="s0">
+    <div class="intro-card">
+      <span class="intro-ornament">🌿</span>
+      <h2>Respira. Responde.<br>Recibe lo que necesitas hoy.</h2>
+      <p>En menos de 2 minutos descubriremos juntas qué necesita tu alma ahora mismo y cuál es el recurso perfecto para ti.</p>
+      <div class="steps">
+        <div class="step"><div class="step-dot">5</div><span>preguntas</span></div>
+        <div class="step"><div class="step-dot">2'</div><span>minutos</span></div>
+        <div class="step"><div class="step-dot">♡</div><span>para ti</span></div>
+      </div>
+      <button class="btn-start" id="btnStart">Comenzar ahora</button>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="screen" id="s1">
+    <div class="q-card">
+      <div class="q-num">Pregunta 1 de 5</div>
+      <div class="q-text">¿Cómo te sientes hoy?</div>
+      <div class="opts" id="o1">
+        <button class="opt" data-q="1" data-v="a"><span class="opt-radio"></span><span class="opt-label">Cansada</span></button>
+        <button class="opt" data-q="1" data-v="b"><span class="opt-radio"></span><span class="opt-label">Abrumada</span></button>
+        <button class="opt" data-q="1" data-v="c"><span class="opt-radio"></span><span class="opt-label">Tranquila</span></button>
+        <button class="opt" data-q="1" data-v="d"><span class="opt-radio"></span><span class="opt-label">Rota por dentro</span></button>
+        <button class="opt" data-q="1" data-v="e"><span class="opt-radio"></span><span class="opt-label">No sé</span></button>
+      </div>
+    </div>
+    <div class="nav-row"><button class="btn-next" id="n1" disabled>Continuar →</button></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="screen" id="s2">
+    <div class="q-card">
+      <div class="q-num">Pregunta 2 de 5</div>
+      <div class="q-text">¿Qué te está pesando más ahora mismo?</div>
+      <div class="opts" id="o2">
+        <button class="opt" data-q="2" data-v="a"><span class="opt-radio"></span><span class="opt-label">Mis responsabilidades diarias</span></button>
+        <button class="opt" data-q="2" data-v="b"><span class="opt-radio"></span><span class="opt-label">Mi cansancio emocional</span></button>
+        <button class="opt" data-q="2" data-v="c"><span class="opt-radio"></span><span class="opt-label">Mi vida familiar o de pareja</span></button>
+        <button class="opt" data-q="2" data-v="d"><span class="opt-radio"></span><span class="opt-label">Algo que viví y aún me duele</span></button>
+        <button class="opt" data-q="2" data-v="e"><span class="opt-radio"></span><span class="opt-label">Sentirme sola o sin apoyo</span></button>
+      </div>
+    </div>
+    <div class="nav-row"><button class="btn-back" id="b2">← Atrás</button><button class="btn-next" id="n2" disabled>Continuar →</button></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="screen" id="s3">
+    <div class="q-card">
+      <div class="q-num">Pregunta 3 de 5</div>
+      <div class="q-text">¿Te das al menos un minuto al día para respirar?</div>
+      <div class="opts" id="o3">
+        <button class="opt" data-q="3" data-v="a"><span class="opt-radio"></span><span class="opt-label">Sí</span></button>
+        <button class="opt" data-q="3" data-v="b"><span class="opt-radio"></span><span class="opt-label">No</span></button>
+        <button class="opt" data-q="3" data-v="c"><span class="opt-radio"></span><span class="opt-label">A veces</span></button>
+      </div>
+    </div>
+    <div class="nav-row"><button class="btn-back" id="b3">← Atrás</button><button class="btn-next" id="n3" disabled>Continuar →</button></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="screen" id="s4">
+    <div class="q-card">
+      <div class="q-num">Pregunta 4 de 5</div>
+      <div class="q-text">¿Sientes que hay heridas que aún no has sanado?</div>
+      <div class="opts" id="o4">
+        <button class="opt" data-q="4" data-v="a"><span class="opt-radio"></span><span class="opt-label">Sí</span></button>
+        <button class="opt" data-q="4" data-v="b"><span class="opt-radio"></span><span class="opt-label">No</span></button>
+        <button class="opt" data-q="4" data-v="c"><span class="opt-radio"></span><span class="opt-label">No sé</span></button>
+      </div>
+    </div>
+    <div class="nav-row"><button class="btn-back" id="b4">← Atrás</button><button class="btn-next" id="n4" disabled>Continuar →</button></div>
+  </div>
+
+  <!-- Q5 — DECISIVA -->
+  <div class="screen" id="s5">
+    <div class="q-card">
+      <div class="q-num">Pregunta 5 de 5</div>
+      <div class="q-text">¿Podrías invertir en ti misma ahora?</div>
+      <div class="q-sub">Esta respuesta me ayuda a mostrarte exactamente lo que necesitas hoy.</div>
+      <div class="opts" id="o5">
+        <button class="opt" data-q="5" data-v="gratis"><span class="opt-radio"></span><span class="opt-label">No puedo pagar nada ahora mismo</span></button>
+        <button class="opt" data-q="5" data-v="ebook"><span class="opt-radio"></span><span class="opt-label">Puedo invertir $11.99 USD</span></button>
+        <button class="opt" data-q="5" data-v="cita"><span class="opt-radio"></span><span class="opt-label">Puedo invertir $40 USD</span></button>
+        <button class="opt" data-q="5" data-v="proceso"><span class="opt-radio"></span><span class="opt-label">Puedo invertir $70 USD o más</span></button>
+      </div>
+    </div>
+    <div class="nav-row"><button class="btn-back" id="b5">← Atrás</button><button class="btn-next" id="n5" disabled>Ver mi resultado →</button></div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="screen" id="sload">
+    <div class="loading-wrap">
+      <p>Preparando lo que<br>necesita tu alma hoy…</p>
+      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- RESULTADO 1 — PDF GRATIS (con captura)    -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="screen" id="r-gratis">
+    <div class="verse-banner">
+      <p>"Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar." — Mateo 11:28</p>
+    </div>
+    <div class="result-header">
+      <span class="emoji">🌿</span>
+      <h2>Hoy solo necesitas un respiro</h2>
+      <p class="sub">Déjame tus datos y te envío el PDF gratuito ahora mismo.</p>
+    </div>
+
+    <div class="offer-card highlight" id="form-card">
+      <span class="offer-badge badge-gratis">PDF Gratuito</span>
+      <div class="offer-title">Un Respiro para Tu Alma</div>
+      <div class="offer-desc">Reflexiones cortas, ejercicios y oraciones simples para los días en que ya no puedes más. Solo necesitas un minuto con Dios.</div>
+      <div class="offer-price">Gratis 🎁</div>
+      <div class="offer-price-sub">Acceso inmediato · Te lo enviamos por WhatsApp o email</div>
+
+      <div class="capture-form" id="captureForm">
+        <div class="field-group">
+          <label for="inp-nombre">Tu nombre</label>
+          <input type="text" id="inp-nombre" placeholder="¿Cómo te llamas?">
+        </div>
+        <div class="field-group">
+          <label for="inp-email">Tu correo electrónico</label>
+          <input type="email" id="inp-email" placeholder="tu@correo.com">
+        </div>
+        <div class="field-group">
+          <label for="inp-tel">Tu número de teléfono</label>
+          <input type="tel" id="inp-tel" placeholder="+1 000 000 0000">
+        </div>
+        <button class="btn-gratis-submit" id="btnEnviarGratis" disabled>
+          📩 Recibir mi PDF gratuito
+        </button>
+      </div>
+      <p class="form-note">Tus datos están seguros. Solo los usamos para enviarte tu PDF y nunca los compartimos.</p>
+    </div>
+
+    <!-- Mensaje de gracias (oculto hasta envío) -->
+    <div class="thankyou-box" id="thankyouBox" style="display:none;">
+      <span class="ty-icon">🌸</span>
+      <h3>¡Gracias, ya recibimos tu solicitud!</h3>
+      <p>En breve recibirás tu PDF gratuito. Julieth se pondrá en contacto contigo pronto. ¡Que este recurso sea un respiro para tu alma!</p>
+    </div>
+
+    <hr class="divider">
+    <div class="alt-links">
+      <p style="font-size:13px;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:8px">¿Quieres dar un paso más profundo?</p>
+      <button class="alt-link" id="g2ebook">Ver el devocional completo ($11.99) →</button>
+      <button class="alt-link" id="g2cita">Ver cita de acompañamiento de 1 hora ($40) →</button>
+      <button class="alt-link" id="g2proceso">Ver proceso de sanación integral ($70+) →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- RESULTADO 2 — EBOOK $11.99                -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="screen" id="r-ebook">
+    <div class="verse-banner">
+      <p>"Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar." — Mateo 11:28</p>
+    </div>
+    <div class="result-header">
+      <span class="emoji">📖</span>
+      <h2>Tu devocional está<br>esperándote</h2>
+      <p class="sub">Un recurso completo para llevar en tu bolso y abrir cuando lo necesites.</p>
+    </div>
+
+    <div class="offer-card highlight">
+      <span class="offer-badge badge-ebook">Devocional Digital</span>
+      <div class="offer-title">Un Respiro para Tu Alma</div>
+      <div class="offer-desc">7 módulos con reflexiones cortas, ejercicios de escritura y oraciones simples. Diseñado para mujeres sin tiempo — cada módulo toma solo un minuto. Acceso inmediato después de tu compra.</div>
+      <div class="offer-price">$11.99 USD</div>
+      <div class="offer-price-sub">Descarga digital · Acceso inmediato</div>
+      <div class="pay-label">Comprar ahora:</div>
+      <div class="pay-row single">
+        <button class="pbtn pbtn-pp" id="btnEbook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h3.882c.46 0 .85-.334.922-.788l.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
+          Comprar con PayPal — $11.99
+        </button>
+      </div>
+      <div class="secure-note">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Pago seguro vía PayPal · Acceso inmediato
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="alt-links">
+      <button class="alt-link" id="e2gratis">← Prefiero el PDF gratuito</button>
+      <button class="alt-link" id="e2cita">Ver cita de acompañamiento de 1 hora ($40) →</button>
+      <button class="alt-link" id="e2proceso">Ver proceso de sanación integral ($70+) →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- RESULTADO 3 — CITA 1H $40                 -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="screen" id="r-cita">
+    <div class="verse-banner">
+      <p>"El Dios eterno es el que da fuerzas al cansado." — Isaías 40:29</p>
+    </div>
+    <div class="result-header">
+      <span class="emoji">💛</span>
+      <h2>Lo que sientes merece<br>ser escuchado</h2>
+      <p class="sub">Una sesión de 1 hora puede ayudarte a soltar lo que pesa.</p>
+    </div>
+
+    <div class="offer-card highlight">
+      <span class="offer-badge badge-cita">Acompañamiento Personal</span>
+      <div class="offer-title">Cita de Acompañamiento Espiritual</div>
+      <div class="offer-desc">Una sesión de 1 hora donde exploramos juntas lo que tu alma y tu cuerpo están comunicando. Con material exclusivo de Neurosabiduría entenderás la conexión entre tus emociones, tu historia y tu salud integral.</div>
+      <div class="offer-price">$40 USD · 1 hora</div>
+      <div class="offer-price-sub">Material exclusivo incluido · Sesión por Zoom · Confirmación por WhatsApp</div>
+      <div class="pay-label">Reserva tu cita:</div>
+      <div class="pay-row">
+        <a class="pbtn pbtn-wa" href="https://wa.me/12018933909?text=Hola%20Julieth%2C%20quiero%20agendar%20una%20cita%20de%20acompa%C3%B1amiento%20espiritual%20de%201%20hora%20(%2440%20USD)" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          WhatsApp
+        </a>
+        <button class="pbtn pbtn-pp" id="btnCita">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h3.882c.46 0 .85-.334.922-.788l.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
+          PayPal
+        </button>
+      </div>
+      <div class="secure-note">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Pago seguro · Confirmación inmediata por WhatsApp
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="alt-links">
+      <button class="alt-link" id="c2proceso">¿Quieres un proceso más profundo? Ver opción semanal ($70+) →</button>
+      <button class="alt-link" id="c2ebook">← Ver el devocional digital ($11.99)</button>
+      <button class="alt-link" id="c2gratis">← Prefiero el PDF gratuito</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- RESULTADO 4 — PROCESO SEMANAL $70+        -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="screen" id="r-proceso">
+    <div class="verse-banner">
+      <p>"Él sana a los quebrantados de corazón y venda sus heridas." — Salmos 147:3</p>
+    </div>
+    <div class="result-header">
+      <span class="emoji">✨</span>
+      <h2>Tu cuerpo y tu alma están<br>pidiendo un proceso profundo</h2>
+      <p class="sub">Estoy aquí para acompañarte en un proceso semanal de 2 horas.</p>
+    </div>
+
+    <div class="offer-card highlight">
+      <span class="offer-badge badge-proceso">Sanación Integral</span>
+      <div class="offer-title">Proceso de Sanación Integral Semanal</div>
+      <div class="offer-desc">Tu cuerpo habla lo que tu alma necesita sanar. Este proceso semanal de 2 horas incluye material exclusivo de Neurosabiduría — conecta tu sistema nervioso, tus emociones y tu historia espiritual para sanar de manera integral y permanente.</div>
+      <div class="offer-price">Desde $70 USD · 2 horas semanales</div>
+      <div class="offer-price-sub">Material exclusivo · Seguimiento personalizado · Sesión por Zoom</div>
+      <div class="pay-label">Reserva tu proceso:</div>
+      <div class="pay-row">
+        <a class="pbtn pbtn-wa" href="https://wa.me/12018933909?text=Hola%20Julieth%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20proceso%20de%20sanaci%C3%B3n%20integral%20semanal%20de%202%20horas%20(desde%2070%20USD)" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          WhatsApp
+        </a>
+        <button class="pbtn pbtn-pp" id="btnProceso">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h3.882c.46 0 .85-.334.922-.788l.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
+          PayPal
+        </button>
+      </div>
+      <div class="secure-note">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Pago seguro · Te contactamos para confirmar tu horario
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="alt-links">
+      <button class="alt-link" id="p2cita">← Primera cita de 1 hora ($40 USD)</button>
+      <button class="alt-link" id="p2ebook">← Ver el devocional digital ($11.99)</button>
+      <button class="alt-link" id="p2gratis">← Prefiero el PDF gratuito</button>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    unrespiroparaelalma.es · hola@unrespiroparaelalma.es · +34 673 52 01 35
+  </footer>
+</div>
+
+<!-- PayPal forms ocultos -->
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" id="ppEbook" style="display:none">
+  <input type="hidden" name="cmd" value="_s-xclick">
+  <input type="hidden" name="hosted_button_id" value="E8YHFQ3DY8VRQ">
+  <input type="hidden" name="currency_code" value="USD">
+</form>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" id="ppCita" style="display:none">
+  <input type="hidden" name="cmd" value="_s-xclick">
+  <input type="hidden" name="hosted_button_id" value="25AHNEBFPLMS8">
+  <input type="hidden" name="currency_code" value="USD">
+</form>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" id="ppProceso" style="display:none">
+  <input type="hidden" name="cmd" value="_s-xclick">
+  <input type="hidden" name="hosted_button_id" value="6H44589AZS8C2">
+  <input type="hidden" name="currency_code" value="USD">
+</form>
+
+<script>
+(function(){
+  var A={q1:null,q2:null,q3:null,q4:null,q5:null};
+  var PM={s0:0,s1:15,s2:30,s3:50,s4:68,s5:84,sload:96,'r-gratis':100,'r-ebook':100,'r-cita':100,'r-proceso':100};
+
+  function show(id){
+    document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+    var el=document.getElementById(id);
+    if(!el)return;
+    el.classList.add('active');
+    document.getElementById('pf').style.width=(PM[id]||0)+'%';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function go(id){return function(){show(id);};}
+
+  function calcResult(){
+    show('sload');
+    setTimeout(function(){
+      var map={gratis:'r-gratis',ebook:'r-ebook',cita:'r-cita',proceso:'r-proceso'};
+      show(map[A.q5]||'r-gratis');
+    },1800);
+  }
+
+  // Option buttons
+  document.querySelectorAll('.opt').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var q=btn.getAttribute('data-q');
+      var v=btn.getAttribute('data-v');
+      document.querySelectorAll('#o'+q+' .opt').forEach(function(b){b.classList.remove('sel');});
+      btn.classList.add('sel');
+      A['q'+q]=v;
+      var nb=document.getElementById('n'+q);
+      if(nb)nb.disabled=false;
+    });
+  });
+
+  // Navigation
+  document.getElementById('btnStart').addEventListener('click',go('s1'));
+  document.getElementById('n1').addEventListener('click',go('s2'));
+  document.getElementById('b2').addEventListener('click',go('s1'));
+  document.getElementById('n2').addEventListener('click',go('s3'));
+  document.getElementById('b3').addEventListener('click',go('s2'));
+  document.getElementById('n3').addEventListener('click',go('s4'));
+  document.getElementById('b4').addEventListener('click',go('s3'));
+  document.getElementById('n4').addEventListener('click',go('s5'));
+  document.getElementById('b5').addEventListener('click',go('s4'));
+  document.getElementById('n5').addEventListener('click',calcResult);
+
+  // Alt links — resultado gratis
+  document.getElementById('g2ebook').addEventListener('click',go('r-ebook'));
+  document.getElementById('g2cita').addEventListener('click',go('r-cita'));
+  document.getElementById('g2proceso').addEventListener('click',go('r-proceso'));
+  // Alt links — ebook
+  document.getElementById('e2gratis').addEventListener('click',go('r-gratis'));
+  document.getElementById('e2cita').addEventListener('click',go('r-cita'));
+  document.getElementById('e2proceso').addEventListener('click',go('r-proceso'));
+  // Alt links — cita
+  document.getElementById('c2proceso').addEventListener('click',go('r-proceso'));
+  document.getElementById('c2ebook').addEventListener('click',go('r-ebook'));
+  document.getElementById('c2gratis').addEventListener('click',go('r-gratis'));
+  // Alt links — proceso
+  document.getElementById('p2cita').addEventListener('click',go('r-cita'));
+  document.getElementById('p2ebook').addEventListener('click',go('r-ebook'));
+  document.getElementById('p2gratis').addEventListener('click',go('r-gratis'));
+
+  // PayPal
+  document.getElementById('btnEbook').addEventListener('click',function(){document.getElementById('ppEbook').submit();});
+  document.getElementById('btnCita').addEventListener('click',function(){document.getElementById('ppCita').submit();});
+  document.getElementById('btnProceso').addEventListener('click',function(){document.getElementById('ppProceso').submit();});
+
+  // ── FORMULARIO GRATIS ──
+  var nombre=document.getElementById('inp-nombre');
+  var email=document.getElementById('inp-email');
+  var tel=document.getElementById('inp-tel');
+  var btnEnviar=document.getElementById('btnEnviarGratis');
+
+  function checkForm(){
+    var ok=nombre.value.trim().length>1 && email.value.trim().includes('@') && tel.value.trim().length>5;
+    btnEnviar.disabled=!ok;
+  }
+  nombre.addEventListener('input',checkForm);
+  email.addEventListener('input',checkForm);
+  tel.addEventListener('input',checkForm);
+
+  document.getElementById('btnEnviarGratis').addEventListener('click',function(){
+    var n=nombre.value.trim();
+    var e=email.value.trim();
+    var t=tel.value.trim();
+    // Abrir WhatsApp con los datos capturados
+    var msg='Hola%20Julieth%2C%20mi%20nombre%20es%20'+encodeURIComponent(n)+'%2C%20mi%20correo%20es%20'+encodeURIComponent(e)+'%20y%20mi%20tel%C3%A9fono%20es%20'+encodeURIComponent(t)+'.%20Quiero%20recibir%20el%20PDF%20gratuito%20%22Un%20Respiro%20para%20Tu%20Alma%22.';
+    window.open('https://wa.me/12018933909?text='+msg,'_blank');
+    // Mostrar mensaje de gracias
+    document.getElementById('captureForm').style.display='none';
+    document.getElementById('thankyouBox').style.display='block';
+  });
+
+})();
+</script>
+</body>
+</html>
